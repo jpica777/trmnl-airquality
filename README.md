@@ -118,24 +118,24 @@ conflicts with TRMNL's built-in `plugins.css` framework. This template uses
 
   <!-- HEADER: Location + Time -->
   <div class="aqi-header">
-    <span class="title title--small">{{ IDX_0.location }}</span>
-    <span class="title title--small">{{ IDX_0.updated_at }}</span>
+    <span class="title title--small">{{ location }}</span>
+    <span class="title title--small">{{ updated_at }}</span>
   </div>
 
-  {% if IDX_0.current %}
+  {% if current %}
     <!-- MAIN AQI DISPLAY -->
     <div class="aqi-main">
-      <span class="value value--xlarge">{{ IDX_0.current.overall_aqi }}</span>
+      <span class="value value--xlarge">{{ current.overall_aqi }}</span>
       <div class="layout layout--col layout--left">
         <span class="label">AQI</span>
-        <span class="title">{{ IDX_0.current.category | upcase }} AIR</span>
+        <span class="title">{{ current.category | upcase }} AIR</span>
       </div>
     </div>
 
     <!-- POLLUTANT BREAKDOWN -->
     <div class="divider"></div>
     <div class="aqi-pollutants">
-      {% for p in IDX_0.current.pollutants %}
+      {% for p in current.pollutants %}
         <div class="aqi-pollutant-item">
           <span class="label label--small">{{ p.name }}</span>
           <span class="description">{{ p.value }}</span>
@@ -150,22 +150,22 @@ conflicts with TRMNL's built-in `plugins.css` framework. This template uses
   {% endif %}
 
   <!-- LOCAL PURPLEAIR SENSOR -->
-  {% if IDX_0.local_sensor %}
+  {% if local_sensor %}
     <div class="divider"></div>
     <div class="aqi-local-row">
-      <span class="label label--small">LOCAL: {{ IDX_0.local_sensor.name }}</span>
-      <span class="description">AQI {{ IDX_0.local_sensor.pm25_aqi }} · {{ IDX_0.local_sensor.pm25_category }}</span>
-      <span class="description">{{ IDX_0.local_sensor.temperature_f }}°F  {{ IDX_0.local_sensor.humidity_pct }}% RH</span>
+      <span class="label label--small">LOCAL: {{ local_sensor.name }}</span>
+      <span class="description">AQI {{ local_sensor.pm25_aqi }} · {{ local_sensor.pm25_category }}</span>
+      <span class="description">{{ local_sensor.temperature_f }}°F  {{ local_sensor.humidity_pct }}% RH</span>
     </div>
   {% endif %}
 
   <!-- FORECAST -->
   <div class="divider"></div>
 
-  {% if IDX_0.forecast.size > 0 %}
-    <span class="label label--small" style="padding: 4px 0;">{{ IDX_0.forecast.size }} DAY FORECAST</span>
+  {% if forecast.size > 0 %}
+    <span class="label label--small" style="padding: 4px 0;">{{ forecast.size }} DAY FORECAST</span>
     <div class="aqi-forecast-grid">
-      {% for day in IDX_0.forecast %}
+      {% for day in forecast %}
         <div class="aqi-forecast-day">
           <span class="label">{{ day.day_label }}</span>
           <span class="value value--large">{% if day.action_day %}⚠ {% endif %}{{ day.overall_aqi }}</span>
@@ -180,9 +180,9 @@ conflicts with TRMNL's built-in `plugins.css` framework. This template uses
   {% endif %}
 
   <!-- HEALTH MESSAGE -->
-  {% if IDX_0.health_message %}
+  {% if health_message %}
     <div class="divider"></div>
-    <span class="description" style="padding-top: 4px; font-style: italic;">{{ IDX_0.health_message }}</span>
+    <span class="description" style="padding-top: 4px; font-style: italic;">{{ health_message }}</span>
   {% endif %}
 
 </div>
@@ -190,7 +190,7 @@ conflicts with TRMNL's built-in `plugins.css` framework. This template uses
 <!-- TITLE BAR -->
 <div class="title_bar">
   <span class="title">Air Quality</span>
-  <span class="instance">{{ IDX_0.location }}</span>
+  <span class="instance">{{ location }}</span>
 </div>
 ```
 
