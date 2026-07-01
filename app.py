@@ -202,7 +202,8 @@ def _process_current(observations):
 def _pollutant_aqi(entry):
     aqi = entry.get("AQI")
     if aqi is None or aqi == -1:
-        return CATEGORY_AQI_ESTIMATE.get(entry.get("CategoryNumber"), 0)
+        category_number = (entry.get("Category") or {}).get("Number")
+        return CATEGORY_AQI_ESTIMATE.get(category_number, 0)
     return aqi
 
 
@@ -221,13 +222,14 @@ def _process_forecast(forecast_entries):
     for date in sorted(by_date.keys()):
         entries = by_date[date]
         worst = max(entries, key=_pollutant_aqi)
+        worst_category = worst.get("Category") or {}
         days.append(
             {
                 "date": date,
                 "day_label": _day_label(date),
                 "overall_aqi": _pollutant_aqi(worst),
-                "category": worst.get("CategoryName"),
-                "category_number": worst.get("CategoryNumber"),
+                "category": worst_category.get("Name"),
+                "category_number": worst_category.get("Number"),
                 "action_day": any(e.get("ActionDay") for e in entries),
             }
         )
